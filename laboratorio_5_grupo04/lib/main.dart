@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// ! => Proyecto realizado por Bryan Retana Chacón y Andrey Leitón Gutiérrez
+
 void main() {
   runApp(const MyApp());
 }
@@ -7,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // Root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
