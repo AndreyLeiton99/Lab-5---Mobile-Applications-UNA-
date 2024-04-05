@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prueba/config/menu_items_recipes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -229,47 +230,32 @@ class RecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final filteredRecipes = recipeMenuItems.where((recipe) => recipe.category == category).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Recetas de $category'),
         backgroundColor: const Color.fromARGB(255, 114, 81, 69),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Regresar al menú de opciones de categorías
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                // Navegar a la pantalla de descripción de la receta
-                Navigator.push(
+            for (final recipe in filteredRecipes)
+              ElevatedButton(
+                onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const RecipeDetailScreen(),
+                    //builder: (context) => RecipeDetailScreen(recipe: recipe),
+                    builder: (context) => RecipeDetailScreen(name: recipe.title),
                   ),
-                );
-              },
-              child: const Text('Receta 1'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navegar a la pantalla de descripción de la receta
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RecipeDetailScreen(),
-                  ),
-                );
-              },
-              child: const Text('Receta 2'),
-            ),
+                ),
+                child: Text(recipe.title),
+              ),
           ],
         ),
       ),
@@ -277,8 +263,10 @@ class RecipeListScreen extends StatelessWidget {
   }
 }
 
+
 class RecipeDetailScreen extends StatelessWidget {
-  const RecipeDetailScreen({super.key});
+  final String name;
+  const RecipeDetailScreen({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -294,8 +282,8 @@ class RecipeDetailScreen extends StatelessWidget {
           },
         ),
       ),
-      body: const Center(
-        child: Text('Detalles de la receta'),
+      body: Center(
+        child: Text(name),
       ),
     );
   }
