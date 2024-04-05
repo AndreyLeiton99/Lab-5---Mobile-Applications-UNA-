@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Positioned(
-                top: 250,
+                top: 136,
                 left: 59,
                 child: Container(
                   child: Text(
@@ -45,9 +45,9 @@ class LoginPage extends StatelessWidget {
                         color: Colors.yellow),
                   ),
                 )),
-            Positioned(top: 350, right: 0, bottom: 0, child: LayerOne()),
-            Positioned(top: 368, right: 0, bottom: 15, child: LayerTwo()),
-            Positioned(top: 320, right: 0, bottom: 48, child: LayerThree()),
+            Positioned(top: 200, right: 0, bottom: 0, child: LayerOne()),
+            Positioned(top: 218, right: 0, bottom: 0, child: LayerTwo()),
+            Positioned(top: 170, right: 0, bottom: 0, child: LayerThree()),
           ],
         ),
       ),
