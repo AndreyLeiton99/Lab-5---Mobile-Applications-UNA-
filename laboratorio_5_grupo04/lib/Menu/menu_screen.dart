@@ -108,12 +108,17 @@ class MenuScreen extends StatelessWidget {
   }
 }
 
-class CategoryMenuScreen extends StatelessWidget {
+class CategoryMenuScreen extends StatefulWidget {
+  @override
+  _CategoryMenuScreenState createState() => _CategoryMenuScreenState();
+}
+
+class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
+  TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final imageSize = screenWidth * 0.2;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
@@ -127,106 +132,81 @@ class CategoryMenuScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-                'assets/background.png'), // Mismo fondo de imagen que MenuScreen
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Navegar a la lista de recetas de pastas
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/pasta.png',
-                          width: imageSize,
-                          height: imageSize,
-                          fit: BoxFit.cover,
-                        ),
-                        Text('Pastas',
-                            style: TextStyle(
-                                fontSize: 18)), // Estilo de texto similar
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navegar a la lista de recetas de postres
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/postres.png',
-                          width: imageSize,
-                          height: imageSize,
-                          fit: BoxFit.cover,
-                        ),
-                        Text('Postres',
-                            style: TextStyle(
-                                fontSize: 18)), // Estilo de texto similar
-                      ],
-                    ),
-                  ),
-                ],
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Buscar categoría',
+                prefixIcon: Icon(Icons.search),
               ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Navegar a la lista de recetas de pizza
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/pizza.png',
-                          width: imageSize,
-                          height: imageSize,
-                          fit: BoxFit.cover,
-                        ),
-                        Text('Pizza',
-                            style: TextStyle(
-                                fontSize: 18)), // Estilo de texto similar
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navegar a la lista de recetas de hamburguesas
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/hamburguesas.png',
-                          width: imageSize,
-                          height: imageSize,
-                          fit: BoxFit.cover,
-                        ),
-                        Text('Hamburguesas',
-                            style: TextStyle(
-                                fontSize: 18)), // Estilo de texto similar
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value.toLowerCase();
+                });
+              },
+            ),
           ),
-        ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/background.png'), // Mismo fondo de imagen que MenuScreen
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  children: _buildCategoryCards(),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  List<Widget> _buildCategoryCards() {
+    List<String> categories = [
+      'Pastas',
+      'Postres',
+      'Pizza',
+      'Hamburguesas'
+    ]; // Lista de categorías (aquí podrías cargarlas desde una fuente de datos externa)
+    if (_searchQuery.isNotEmpty) {
+      categories = categories
+          .where((category) => category.toLowerCase().contains(_searchQuery))
+          .toList();
+    }
+    return categories.map((category) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeListScreen(category: category),
+            ),
+          );
+        },
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/$category.png',
+              width: MediaQuery.of(context).size.width * 0.42,
+              height: MediaQuery.of(context).size.width * 0.42,
+              fit: BoxFit.cover,
+            ),
+            Text(category,
+                style: TextStyle(fontSize: 18)), // Estilo de texto similar
+          ],
+        ),
+      );
+    }).toList();
   }
 }
 
