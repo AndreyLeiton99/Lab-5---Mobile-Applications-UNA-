@@ -1,72 +1,56 @@
 import 'package:flutter/material.dart';
-
-// ! => Proyecto realizado por Bryan Retana Chacón y Andrey Leitón Gutiérrez
+import 'package:prueba/layers/layer_one.dart';
+import 'package:prueba/layers/layer_three.dart';
+import 'package:prueba/layers/layer_two.dart';
+import 'package:prueba/Menu/menu_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    title: 'Login Demo',
+    theme: ThemeData(
+      fontFamily: 'Poppins',
+    ),
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/login', // Ruta inicial de la aplicación
+    routes: {
+      '/login': (context) =>
+          LoginPage(), // Ruta de la pantalla de inicio de sesión
+      '/menu': (context) => MenuScreen(), // Ruta de la pantalla de menú
+    },
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // Root of the application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage('assets/primaryBg.png'),
+          fit: BoxFit.cover,
+        )),
+        child: Stack(
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Positioned(
+                top: 250,
+                left: 59,
+                child: Container(
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                        fontSize: 48,
+                        fontFamily: 'Poppins-Medium',
+                        fontWeight: FontWeight.w500,
+                        color: Colors.yellow),
+                  ),
+                )),
+            Positioned(top: 350, right: 0, bottom: 0, child: LayerOne()),
+            Positioned(top: 368, right: 0, bottom: 15, child: LayerTwo()),
+            Positioned(top: 320, right: 0, bottom: 48, child: LayerThree()),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
