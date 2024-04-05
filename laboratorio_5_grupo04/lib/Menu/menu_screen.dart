@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuScreen extends StatelessWidget {
+  const MenuScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(
+        backgroundColor: const Color.fromARGB(
             255, 114, 81, 69), // Cambiar color de AppBar a celeste
-        title: Text('Menú'),
+        title: const Text('Menú'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout), // Usar icono de cerrar sesión
+            icon: const Icon(Icons.logout), // Usar icono de cerrar sesión
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.clear(); // Borrar todos los datos almacenados
@@ -25,7 +27,7 @@ class MenuScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
                 'assets/background.png'), // Ruta de la imagen de fondo
@@ -35,27 +37,28 @@ class MenuScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18),
               child: Column(
                 children: [
                   Text(
                     'Bienvenidos a nuestra página de recetas', // Agregar mensaje de bienvenida
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 12),
                   Text(
                     'Acá podrás encontrar muchas recetas de diferentes tipos de comida, busca la que más te guste y empieza a cocinar', // Agregar descripción
                     textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GridView.count(
               shrinkWrap: true,
               crossAxisCount: 2,
@@ -66,27 +69,25 @@ class MenuScreen extends StatelessWidget {
                 _buildImageContainer('assets/batidos.png'),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Navegar al menú de opciones de categorías
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryMenuScreen(),
+                    builder: (context) => const CategoryMenuScreen(),
                   ),
                 );
               },
-              child: Text(
-                'Categorías',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(
+                    const Color.fromARGB(
                         255, 114, 81, 69)), // Cambiar color del botón a celeste
+              ),
+              child: const Text(
+                'Categorías',
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ],
@@ -99,7 +100,7 @@ class MenuScreen extends StatelessWidget {
     return Container(
       width: 150, // Ancho deseado de la imagen
       height: 150, // Alto deseado de la imagen
-      margin: EdgeInsets.all(8), // Margen entre imágenes
+      margin: const EdgeInsets.all(8), // Margen entre imágenes
       child: Image.asset(
         imagePath,
         fit: BoxFit.cover, // Ajustar la imagen para cubrir el contenedor
@@ -109,12 +110,14 @@ class MenuScreen extends StatelessWidget {
 }
 
 class CategoryMenuScreen extends StatefulWidget {
+  const CategoryMenuScreen({super.key});
+
   @override
   _CategoryMenuScreenState createState() => _CategoryMenuScreenState();
 }
 
 class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
   @override
@@ -122,11 +125,12 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
-            Color.fromARGB(255, 114, 81, 69), // Color del AppBar del menú
-        title: Text('Categorías',
-            style: TextStyle(fontSize: 24)), // Título con el mismo estilo
+        const Color.fromARGB(255, 114, 81, 69), // Color del AppBar del menú
+        title: const Text(
+          'Categorías',
+          style: TextStyle(fontSize: 24)), // Título con el mismo estilo
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -135,11 +139,13 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Buscar categoría',
+                filled: true,
+                fillColor: Color.fromARGB(87, 114, 81, 69),
                 prefixIcon: Icon(Icons.search),
               ),
               onChanged: (value) {
@@ -151,7 +157,7 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
           ),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
                       'assets/background.png'), // Mismo fondo de imagen que MenuScreen
@@ -160,6 +166,9 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
               ),
               child: Center(
                 child: GridView.count(
+                  padding: const EdgeInsets.only(top: 150),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                   crossAxisCount: 2,
                   children: _buildCategoryCards(),
                 ),
@@ -202,7 +211,8 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
               fit: BoxFit.cover,
             ),
             Text(category,
-                style: TextStyle(fontSize: 18)), // Estilo de texto similar
+                style:
+                    const TextStyle(fontSize: 18)), // Estilo de texto similar
           ],
         ),
       );
@@ -210,18 +220,21 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
   }
 }
 
+
+
 class RecipeListScreen extends StatelessWidget {
   final String category;
 
-  RecipeListScreen({required this.category});
+  const RecipeListScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Recetas de $category'),
+        backgroundColor: const Color.fromARGB(255, 114, 81, 69),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Regresar al menú de opciones de categorías
             Navigator.pop(context);
@@ -238,24 +251,24 @@ class RecipeListScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RecipeDetailScreen(),
+                    builder: (context) => const RecipeDetailScreen(),
                   ),
                 );
               },
-              child: Text('Receta 1'),
+              child: const Text('Receta 1'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Navegar a la pantalla de descripción de la receta
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RecipeDetailScreen(),
+                    builder: (context) => const RecipeDetailScreen(),
                   ),
                 );
               },
-              child: Text('Receta 2'),
+              child: const Text('Receta 2'),
             ),
           ],
         ),
@@ -265,20 +278,23 @@ class RecipeListScreen extends StatelessWidget {
 }
 
 class RecipeDetailScreen extends StatelessWidget {
+  const RecipeDetailScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalle de la Receta'),
+        title: const Text('Detalle de la Receta'),
+        backgroundColor: const Color.fromARGB(255, 114, 81, 69),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Regresar al menú de recetas
             Navigator.pop(context);
           },
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Detalles de la receta'),
       ),
     );
