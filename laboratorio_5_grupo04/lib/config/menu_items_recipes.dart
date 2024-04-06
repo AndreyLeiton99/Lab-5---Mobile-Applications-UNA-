@@ -24,7 +24,7 @@ const List<MenuItem> recipeMenuItems = [
     title: 'Helado de Vainilla',
     subTitle: 'Postre refrescante clásico',
     category: 'Postres',
-    link: '', // TODO: Replace using the exact path related to this MenuItem
+    link: '/vanillaIceCream',
     imageUrl:
         'https://example.com/vanilla-ice-cream.jpg', // TODO: Replace using the exact path to image in assets
     ingredients: [
@@ -63,7 +63,6 @@ const List<MenuItem> recipeMenuItems = [
       '1 cucharadita de extracto de vainilla',
     ],
     instructions: '''
-
       1. Precalentar el horno a 180°C.
       2. Triturar las galletas digestive hasta obtener una textura fina.
       3. Mezclar las galletas trituradas con la mantequilla derretida hasta obtener una masa homogénea.
@@ -92,7 +91,6 @@ const List<MenuItem> recipeMenuItems = [
       '2 cucharadas de cacao en polvo',
     ],
     instructions: '''
-
       1. Separar las yemas de las claras de los huevos.
       2. Batir las yemas con el azúcar hasta obtener una mezcla blanca y espumosa.
       3. Añadir el mascarpone a la mezcla de yemas y azúcar y batir hasta obtener una crema homogénea.
@@ -118,7 +116,6 @@ const List<MenuItem> recipeMenuItems = [
       '1 vaina de vainilla',
     ],
     instructions: '''
-
       1. Precalentar el horno a 180°C.
       2. Hervir la leche con la vaina de vainilla.
       3. Batir los huevos con el azúcar hasta obtener una mezcla blanca y espumosa.
@@ -146,7 +143,6 @@ const List<MenuItem> recipeMenuItems = [
       'Nueces o frutos secos (opcional)',
     ],
     instructions: '''
-
       1. Precalentar el horno a 180°C.
       2. Derretir el chocolate negro con la mantequilla al baño maría.
       3. Batir los huevos con el azúcar hasta obtener una mezcla blanca y espumosa.
@@ -179,8 +175,6 @@ const List<MenuItem> recipeMenuItems = [
       'Sal',
     ],
     instructions: '''
-  **Preparación:**
-
   1.	Cocinar el spaghetti en abundante agua salada hasta que esté al dente.
   2.	Mientras tanto, en una sartén grande, freír el tocino a fuego medio hasta que esté crujiente.
   3.	En un tazón grande, batir los huevos con el queso parmesano, la sal y la pimienta negra.
@@ -207,8 +201,6 @@ const List<MenuItem> recipeMenuItems = [
       '1 diente de ajo (opcional)',
     ],
     instructions: '''
-  **Preparación:**
-
   1.	Cocinar el fettuccine en abundante agua salada hasta que esté al dente.
   2.	Mientras tanto, derretir la mantequilla en una sartén grande a fuego medio.
   3.	Añadir el queso parmesano a la mantequilla y remover hasta que se derrita.
@@ -236,8 +228,6 @@ const List<MenuItem> recipeMenuItems = [
       'Piñones tostados (opcional, para decorar)',
     ],
     instructions: '''
-  **Preparación:**
-
   1.	Cocinar el penne en abundante agua salada hasta que esté al dente.
   2.	Mientras tanto, mezclar el pesto con los tomates cherry y los piñones.
   3.	Escurrir el penne y añadirlo a la mezcla de pesto.
@@ -266,8 +256,6 @@ const List<MenuItem> recipeMenuItems = [
       '1/4 cucharadita de pimentón dulce (opcional)',
     ],
     instructions: '''
-  **Preparación:**
-
   1. Hervir la pasta en agua con sal hasta que esté al dente. Reservar.
 
   2. Derretir la mantequilla en una olla a fuego medio.
@@ -312,8 +300,6 @@ const List<MenuItem> recipeMenuItems = [
         'Aceite de oliva virgen extra',
       ],
       instructions: '''
-  **Preparación:**
-
   1.	Precalentar el horno a 180°C.
   2.	En una sartén grande, dorar la carne picada con la cebolla y el ajo.
   3.	Añadir la salsa de tomate y cocinar a fuego lento durante 15 minutos.
