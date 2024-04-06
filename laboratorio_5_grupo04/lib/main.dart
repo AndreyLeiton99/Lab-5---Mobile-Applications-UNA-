@@ -14,36 +14,36 @@ void main() {
     initialRoute: '/login', // Ruta inicial de la aplicación
     routes: {
       '/login': (context) =>
-          LoginPage(), // Ruta de la pantalla de inicio de sesión
-      '/menu': (context) => MenuScreen(), // Ruta de la pantalla de menú
+          const LoginPage(), // Ruta de la pantalla de inicio de sesión
+      '/menu': (context) => const MenuScreen(), // Ruta de la pantalla de menú
     },
   ));
 }
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
           image: AssetImage('assets/primaryBg1.png'),
           fit: BoxFit.cover,
         )),
         child: Stack(
           children: <Widget>[
-            Positioned(
+            const Positioned(
                 top: 136,
                 left: 59,
-                child: Container(
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                        fontSize: 48,
-                        fontFamily: 'Poppins-Medium',
-                        fontWeight: FontWeight.w500,
-                        color: Colors.yellow),
-                  ),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                      fontSize: 48,
+                      fontFamily: 'Poppins-Medium',
+                      fontWeight: FontWeight.w500,
+                      color: Colors.yellow),
                 )),
             Positioned(top: 200, right: 0, bottom: 0, child: LayerOne()),
             Positioned(top: 218, right: 0, bottom: 0, child: LayerTwo()),
