@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:prueba/config.dart';
 
 class LayerTwo extends StatelessWidget {
+  const LayerTwo({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 379,
       height: 584,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: layerTwoBg,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(60.0),

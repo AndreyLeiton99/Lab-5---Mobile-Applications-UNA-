@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prueba/config.dart'; // Importa la clase MenuScreen
 
 class LayerThree extends StatefulWidget {
+  const LayerThree({super.key});
+
   @override
   _LayerThreeState createState() => _LayerThreeState();
 }
@@ -13,12 +15,12 @@ class _LayerThreeState extends State<LayerThree> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 584,
       width: MediaQuery.of(context).size.width,
       child: Stack(
         children: <Widget>[
-          Positioned(
+          const Positioned(
             left: 59,
             top: 99,
             child: Text(
@@ -32,18 +34,18 @@ class _LayerThreeState extends State<LayerThree> {
           Positioned(
               left: 59,
               top: 129,
-              child: Container(
+              child: SizedBox(
                 width: 310,
                 child: TextField(
                   controller: usernameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     hintText: 'Enter User ID or Email',
                     hintStyle: TextStyle(color: hintText),
                   ),
                 ),
               )),
-          Positioned(
+          const Positioned(
             left: 59,
             top: 199,
             child: Text(
@@ -57,19 +59,19 @@ class _LayerThreeState extends State<LayerThree> {
           Positioned(
               left: 59,
               top: 229,
-              child: Container(
+              child: SizedBox(
                 width: 310,
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     hintText: 'Enter Password',
                     hintStyle: TextStyle(color: hintText),
                   ),
                 ),
               )),
-          Positioned(
+          const Positioned(
               right: 60,
               top: 296,
               child: Text(
@@ -93,7 +95,7 @@ class _LayerThreeState extends State<LayerThree> {
                   });
                 },
               )),
-          Positioned(
+          const Positioned(
               left: 87,
               top: 375,
               child: Text(
@@ -107,7 +109,7 @@ class _LayerThreeState extends State<LayerThree> {
           Positioned(
               top: 365,
               right: 60,
-              child: Container(
+              child: SizedBox(
                 width: 99,
                 height: 35,
                 child: Padding(
@@ -125,7 +127,7 @@ class _LayerThreeState extends State<LayerThree> {
                         // Credenciales incorrectas, aquí puedes mostrar un mensaje de error
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       'Sign In',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -157,16 +159,16 @@ class _LayerThreeState extends State<LayerThree> {
                     height: 48,
                     decoration: BoxDecoration(
                         border: Border.all(color: signInBox),
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20))),
                     child: Image.asset(
-                      'assets/icon_google.png',
+                      'assets/login/icon_google.png',
                       width: 20,
                       height: 21,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'or',
                     style: TextStyle(
                         fontSize: 18,
@@ -178,11 +180,11 @@ class _LayerThreeState extends State<LayerThree> {
                     height: 48,
                     decoration: BoxDecoration(
                         border: Border.all(color: signInBox),
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20))),
                     child: Image.asset(
-                      'assets/icon_apple.png',
+                      'assets/login/icon_apple.png',
                       width: 20,
                       height: 21,
                     ),

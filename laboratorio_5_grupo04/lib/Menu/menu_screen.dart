@@ -38,7 +38,7 @@ class MenuScreen extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                'assets/background.png'), // Ruta de la imagen de fondo
+                'assets/background/background.png'), // Ruta de la imagen de fondo
             fit: BoxFit.cover, // Ajustar la imagen para cubrir el contenedor
           ),
         ),
@@ -71,10 +71,10 @@ class MenuScreen extends StatelessWidget {
               shrinkWrap: true,
               crossAxisCount: 2,
               children: [
-                _buildImageContainer('assets/italiana.png'),
-                _buildImageContainer('assets/mexicana.png'),
-                _buildImageContainer('assets/vegetariana.png'),
-                _buildImageContainer('assets/batidos.png'),
+                _buildImageContainer('assets/menuPrincipal/italiana.png'),
+                _buildImageContainer('assets/menuPrincipal/mexicana.png'),
+                _buildImageContainer('assets/menuPrincipal/vegetariana.png'),
+                _buildImageContainer('assets/menuPrincipal/batidos.png'),
               ],
             ),
             const SizedBox(height: 20),
@@ -174,7 +174,7 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'assets/background.png'), // Mismo fondo de imagen que MenuScreen
+                      'assets/background/background.png'), // Mismo fondo de imagen que MenuScreen
                   fit: BoxFit.cover,
                 ),
               ),
@@ -432,8 +432,7 @@ class RecipeDetailScreen extends StatelessWidget {
               // Ingredientes
               const Text(
                 'Ingredientes:',
-                style: TextStyle(
-                    fontSize: 18.0, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                   height: 5.0), // Espacio entre título de ingredientes y lista
@@ -446,12 +445,16 @@ class RecipeDetailScreen extends StatelessWidget {
               // Instrucciones
               const Text(
                 'Instrucciones:',
-                style: TextStyle(
-                    fontSize: 18.0, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               // todo: cambiar el formato de las instrucciones similar a como estan los ingredientes
-              Text(recipe.instructions, textAlign: TextAlign.center,),
+              Text(
+                recipe.instructions,
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

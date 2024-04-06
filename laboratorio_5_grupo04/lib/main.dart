@@ -29,12 +29,12 @@ class LoginPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage('assets/primaryBg1.png'),
+          image: AssetImage('assets/login/primaryBg.png'),
           fit: BoxFit.cover,
         )),
-        child: Stack(
+        child: const Stack(
           children: <Widget>[
-            const Positioned(
+            Positioned(
                 top: 136,
                 left: 59,
                 child: Text(
