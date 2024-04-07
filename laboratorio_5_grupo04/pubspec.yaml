@@ -63,8 +63,11 @@ flutter:
   assets:
     - assets/
     - assets/login/
-    - assets/menuPrincipal/
+    - assets/principal/
+    - assets/categorias/
     - assets/background/
+    - assets/pastas/
+    - assets/postres/
 
   #   - images/a_dot_ham.jpeg
 

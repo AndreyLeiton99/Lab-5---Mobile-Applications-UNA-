@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart'; // Importante: Asegúrate de importar el paquete necesario
+
 class MenuItem {
   final String title;
+  final String time;
   final String subTitle;
   final String link;
   final String category; // for filter recipes
@@ -9,6 +12,7 @@ class MenuItem {
 
   const MenuItem({
     required this.title,
+    required this.time,
     required this.subTitle,
     required this.link,
     required this.category,
@@ -18,39 +22,40 @@ class MenuItem {
   });
 }
 
-const List<MenuItem> recipeMenuItems = [
-  //Todo:          Categorias de POSTRES
-  MenuItem(
-    title: 'Helado de Vainilla',
-    subTitle: 'Postre refrescante clásico',
-    category: 'Postres',
-    link: '/vanillaIceCream',
-    imageUrl:
-        'https://example.com/vanilla-ice-cream.jpg', // TODO: Replace using the exact path to image in assets
-    ingredients: [
-      '500 ml de leche',
-      '250 ml de nata líquida',
-      '100 g de azúcar',
-      '3 yemas de huevo',
-      '1 vaina de vainilla',
-    ],
-    instructions: '''
-      1. Hervir la leche con la vaina de vainilla.
-      2. Batir las yemas de huevo con el azúcar hasta obtener una mezcla blanca y espumosa.
-      3. Añadir la leche caliente a la mezcla de yemas y azúcar y batir hasta obtener una mezcla homogénea.
-      4. Cocinar la mezcla a fuego lento durante 5 minutos, hasta que espese.
-      5. Dejar enfriar la mezcla completamente.
-      6. Añadir la nata líquida a la mezcla fría y batir hasta obtener una textura cremosa.
-      7. Verter la mezcla en una heladera y congelar durante 24 horas.
-    ''',
-  ),
-  MenuItem(
+class RecipeMenu {
+  static const List<MenuItem> recipeMenuItems = [
+    // Aquí van los elementos de tu lista
+    MenuItem(
+      title: 'Helado de Vainilla',
+      time: '1 hora',
+      subTitle: 'Postre refrescante clásico',
+      category: 'Postres',
+      link: '/vanillaIceCream',
+      imageUrl: 'assets/postres/helado.jpg',
+      ingredients: [
+        '500 ml de leche',
+        '250 ml de nata líquida',
+        '100 g de azúcar',
+        '3 yemas de huevo',
+        '1 vaina de vainilla',
+      ],
+      instructions: '''
+        1. Hervir la leche con la vaina de vainilla.
+        2. Batir las yemas de huevo con el azúcar hasta obtener una mezcla blanca y espumosa.
+        3. Añadir la leche caliente a la mezcla de yemas y azúcar y batir hasta obtener una mezcla homogénea.
+        4. Cocinar la mezcla a fuego lento durante 5 minutos, hasta que espese.
+        5. Dejar enfriar la mezcla completamente.
+        6. Añadir la nata líquida a la mezcla fría y batir hasta obtener una textura cremosa.
+        7. Verter la mezcla en una heladera y congelar durante 24 horas.
+      ''',
+    ),
+      MenuItem(
     title: 'Tarta de Queso',
+    time: '1 hora y 20 minutos',
     subTitle: 'Postre clásico cremoso y suave',
     category: 'Postres',
     link: '/tartaQueso',
-    imageUrl:
-        'https://example.com/tarta-queso.jpg', // TODO: Reemplazar con la ruta real a la imagen
+    imageUrl: 'assets/postres/pastel.jpg',
     ingredients: [
       'Para la base:',
       '200 g de galletas digestive',
@@ -77,11 +82,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
     title: 'Tiramisú',
+    time: '45 minutos',
     subTitle: 'Postre italiano clásico con café y mascarpone',
     category: 'Postres',
     link: '/tiramisu',
-    imageUrl:
-        'https://example.com/tiramisu.jpg', // TODO: Reemplazar con la ruta real a la imagen
+    imageUrl: 'assets/postres/tiramisu.jpg',
     ingredients: [
       '200 g de bizcochos de soletilla',
       '500 g de mascarpone',
@@ -104,11 +109,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
     title: 'Flan',
+    time: '30 minutos',
     subTitle: 'Postre tradicional español cremoso y suave',
     category: 'Postres',
     link: '/flan',
-    imageUrl:
-        'https://example.com/flan.jpg', // TODO: Reemplazar con la ruta real a la imagen
+    imageUrl: 'assets/postres/flan.jpg',
     ingredients: [
       '1 litro de leche',
       '6 huevos',
@@ -128,11 +133,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
     title: 'Brownie',
+    time: '20 minutos',
     subTitle: 'Pastel de chocolate denso y húmedo',
     category: 'Postres',
     link: '/brownie',
-    imageUrl:
-        'https://example.com/brownie.jpg', // TODO: Reemplazar con la ruta real a la imagen
+    imageUrl: 'assets/postres/brownie.jpg',
     ingredients: [
       '200 g de chocolate negro',
       '150 g de mantequilla',
@@ -159,11 +164,11 @@ const List<MenuItem> recipeMenuItems = [
 
   MenuItem(
     title: 'Spaghetti alla Carbonara',
+    time: '55 minutos',
     subTitle: 'Plato típico romano cremoso y sabroso',
     link: '/spaghettiCarbonara',
     category: 'Pastas',
-    imageUrl:
-        'https://example.com/spaghetti-carbonara.jpg', // TODO: Replace with the actual image URL
+    imageUrl: 'assets/pastas/carbonara.jpg',
     ingredients: [
       '350 g de spaghetti',
       '150 g de guanciale (o panceta en su defecto)',
@@ -186,11 +191,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
     title: 'Fettuccine Alfredo',
+    time: '40 minutos',
     subTitle: 'Clásico y cremoso plato de pasta italiano',
     link: '/fettuccineAlfredo',
     category: 'Pastas',
-    imageUrl:
-        'https://example.com/fettuccine-alfredo.jpg', // TODO: Replace with the actual image URL
+    imageUrl: 'assets/pastas/fettuccini.jpg',
     ingredients: [
       '400 g de fettuccine',
       '150 g de mantequilla sin sal',
@@ -213,11 +218,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
     title: 'Penne con Pesto',
+    time: '1 hora',
     subTitle: 'Pasta rápida y deliciosa con salsa pesto',
     link: '/pennePesto',
     category: 'Pastas',
-    imageUrl:
-        'https://example.com/penne-pesto.jpg', // TODO: Replace with the actual image URL
+    imageUrl: 'assets/pastas/penne.jpg',
     ingredients: [
       '350 g de penne',
       '200 g de pesto (casero o comprado)',
@@ -239,11 +244,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
     title: 'Macarrones con Queso',
+    time: '25 minutos',
     subTitle: 'Plato clásico americano cremoso y reconfortante',
     link: '/macarronesQueso',
     category: 'Pastas',
-    imageUrl:
-        'https://example.com/macarrones-queso.jpg', // TODO: Reemplazar con la ruta real a la imagen
+    imageUrl: 'assets/pastas/mac.jpg',
     ingredients: [
       '200 g de macarrones',
       '50 g de mantequilla',
@@ -279,11 +284,11 @@ const List<MenuItem> recipeMenuItems = [
   ),
   MenuItem(
       title: 'Lasaña',
+      time: '1 hora y 30 minutos',
       subTitle: 'Plato italiano clásico con capas de pasta, salsa y queso',
       link: '/lasaña',
       category: 'Pastas',
-      imageUrl:
-          'https://example.com/lasaña.jpg', // TODO: Reemplazar con la ruta real a la imagen
+      imageUrl: 'assets/pastas/lasagna.jpg',
       ingredients: [
         '1 paquete de placas de lasaña',
         '500 g de carne picada',
@@ -312,4 +317,38 @@ const List<MenuItem> recipeMenuItems = [
   10.	Dejar reposar durante 10 minutos antes de servir.
 
   '''),
-];
+  ];
+}
+
+class RecipeCard extends StatelessWidget {
+  final MenuItem menuItem;
+
+  const RecipeCard({super.key, required this.menuItem});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Image.asset(menuItem.imageUrl),
+          ListTile(
+            title: Text(menuItem.title),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.access_time), // Icono de reloj
+                    const SizedBox(width: 5),
+                    Text(menuItem.time),
+                  ],
+                ),
+                Text(menuItem.subTitle),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

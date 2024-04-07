@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:prueba/config/menu_items_recipes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
+
+  @override
+  _MenuScreenState createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  int _selectedIndex = 0; // Estado para indicar la pantalla activa
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(
-            255, 114, 81, 69), // Cambiar color de AppBar a celeste
+        backgroundColor: const Color.fromARGB(255, 114, 81, 69),
         title: const Text(
           'Menú principal',
           style: TextStyle(color: Colors.white, fontSize: 28),
@@ -21,10 +27,10 @@ class MenuScreen extends StatelessWidget {
             icon: const Icon(
               Icons.logout,
               color: Colors.white,
-            ), // Usar icono de cerrar sesión
+            ),
             onPressed: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.clear(); // Borrar todos los datos almacenados
+              await prefs.clear();
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/login',
@@ -34,12 +40,52 @@ class MenuScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromARGB(
+            255, 114, 81, 69), // Color de fondo de la barra de navegación
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star), // Icono de recetas populares
+            label: 'Menú Principal', // Texto de recetas populares
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category), // Icono de categorías
+            label: 'Categorías', // Texto de la categoría
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite), // Icono de favoritos
+            label: 'Favoritos', // Texto de favoritos
+          ),
+        ],
+        currentIndex: _selectedIndex, // Estado actual
+        selectedItemColor: Colors.white, // Color de texto seleccionado
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex =
+                index; // Actualizar el estado al cambiar de pantalla
+          });
+          if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CategoryMenuScreen(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const FavoriteRecipesScreen(),
+              ),
+            );
+          }
+        },
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'assets/background/background.png'), // Ruta de la imagen de fondo
-            fit: BoxFit.cover, // Ajustar la imagen para cubrir el contenedor
+            image: AssetImage('assets/background/background.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Column(
@@ -50,7 +96,7 @@ class MenuScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Bienvenidos a nuestra página de recetas', // Agregar mensaje de bienvenida
+                    'Bienvenidos a nuestra página de recetas',
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -59,7 +105,7 @@ class MenuScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12),
                   Text(
-                    'Acá podrás encontrar muchas recetas de diferentes tipos de comida, busca la que más te guste y empieza a cocinar', // Agregar descripción
+                    'Acá podrás encontrar muchas recetas de diferentes tipos de comida, busca la que más te guste y empieza a cocinar',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                   ),
@@ -71,32 +117,11 @@ class MenuScreen extends StatelessWidget {
               shrinkWrap: true,
               crossAxisCount: 2,
               children: [
-                _buildImageContainer('assets/menuPrincipal/italiana.png'),
-                _buildImageContainer('assets/menuPrincipal/mexicana.png'),
-                _buildImageContainer('assets/menuPrincipal/vegetariana.png'),
-                _buildImageContainer('assets/menuPrincipal/batidos.png'),
+                _buildImageContainer('assets/principal/italiana.png'),
+                _buildImageContainer('assets/principal/mexicana.png'),
+                _buildImageContainer('assets/principal/vegetariana.png'),
+                _buildImageContainer('assets/principal/batidos.png'),
               ],
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navegar al menú de opciones de categorías
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CategoryMenuScreen(),
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(
-                        255, 114, 81, 69)), // Cambiar color del botón a celeste
-              ),
-              child: const Text(
-                'Categorías',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
             ),
           ],
         ),
@@ -106,14 +131,188 @@ class MenuScreen extends StatelessWidget {
 
   Container _buildImageContainer(String imagePath) {
     return Container(
-      width: 150, // Ancho deseado de la imagen
-      height: 150, // Alto deseado de la imagen
-      margin: const EdgeInsets.all(8), // Margen entre imágenes
+      width: 150,
+      height: 150,
+      margin: const EdgeInsets.all(8),
       child: Image.asset(
         imagePath,
-        fit: BoxFit.cover, // Ajustar la imagen para cubrir el contenedor
+        fit: BoxFit.cover,
       ),
     );
+  }
+}
+
+class FavoriteRecipesScreen extends StatefulWidget {
+  const FavoriteRecipesScreen({super.key});
+
+  @override
+  _FavoriteRecipesScreenState createState() => _FavoriteRecipesScreenState();
+}
+
+class _FavoriteRecipesScreenState extends State<FavoriteRecipesScreen> {
+  int _selectedIndex = 2; // Estado para indicar la pantalla activa
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 114, 81, 69),
+        title: const Text(
+          'Recetas Favoritas',
+          style: TextStyle(color: Colors.white, fontSize: 28),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/login',
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromARGB(
+            255, 114, 81, 69), // Color de fondo de la barra de navegación
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star), // Icono de recetas populares
+            label: 'Menú Principal', // Texto de recetas populares
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category), // Icono de categorías
+            label: 'Categorías', // Texto de la categoría
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite), // Icono de favoritos
+            label: 'Favoritos', // Texto de favoritos
+          ),
+        ],
+        currentIndex: _selectedIndex, // Estado actual
+        selectedItemColor: Colors.white, // Color de texto seleccionado
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          if (index == 0) {
+            Navigator.pushReplacement(
+              // Reemplaza Navigator.push por Navigator.pushReplacement
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MenuScreen(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              // Reemplaza Navigator.push por Navigator.pushReplacement
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CategoryMenuScreen(),
+              ),
+            );
+          }
+        },
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background/background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FutureBuilder<List<String>>(
+          future: _getFavoriteRecipes(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No hay recetas favoritas.'));
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final recipeTitle = snapshot.data![index];
+                  final recipe = RecipeMenu.recipeMenuItems.firstWhere(
+                    (item) => item.title == recipeTitle,
+                  );
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RecipeDetailScreen(recipe: recipe),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      color: const Color.fromARGB(148, 233, 215, 181),
+                      shadowColor: Colors.brown[500],
+                      elevation: 8,
+                      margin: const EdgeInsets.all(10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 170,
+                              height: 170,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(recipe.imageUrl),
+                              ),
+                            ),
+                            const SizedBox(height: 0),
+                            Text(
+                              recipe.title,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              recipe.subTitle,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  // Método para obtener la lista de recetas favoritas del usuario desde SharedPreferences
+  Future<List<String>> _getFavoriteRecipes() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? favoriteRecipes =
+        prefs.getStringList('favoriteRecipes') ?? [];
+    return favoriteRecipes;
   }
 }
 
@@ -125,6 +324,8 @@ class CategoryMenuScreen extends StatefulWidget {
 }
 
 class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
+  int _selectedIndex = 1; // Estado para indicar la pantalla activa
+
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -133,21 +334,70 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor:
-            const Color.fromARGB(255, 114, 81, 69), // Color del AppBar del menú
-        title: const Text('Categorías',
-            style: TextStyle(
-                fontSize: 25,
-                color: Colors.white)), // Título con el mismo estilo
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        backgroundColor: const Color.fromARGB(255, 114, 81, 69),
+        title: const Text(
+          'Categorías',
+          style: TextStyle(color: Colors.white, fontSize: 28),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/login',
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromARGB(
+            255, 114, 81, 69), // Color de fondo de la barra de navegación
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star), // Icono de recetas populares
+            label: 'Menú Principal', // Texto de recetas populares
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category), // Icono de categorías
+            label: 'Categorías', // Texto de la categoría
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite), // Icono de favoritos
+            label: 'Favoritos', // Texto de favoritos
+          ),
+        ],
+        currentIndex: _selectedIndex, // Estado actual
+        selectedItemColor: Colors.white, // Color de texto seleccionado
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          if (index == 0) {
+            Navigator.pushReplacement(
+              // Reemplaza Navigator.push por Navigator.pushReplacement
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MenuScreen(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              // Reemplaza Navigator.push por Navigator.pushReplacement
+              context,
+              MaterialPageRoute(
+                builder: (context) => const FavoriteRecipesScreen(),
+              ),
+            );
+          }
+        },
       ),
       body: Column(
         children: [
@@ -219,7 +469,7 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
         child: Column(
           children: [
             Image.asset(
-              'assets/$category.png',
+              'assets/categorias/$category.png',
               width: MediaQuery.of(context).size.width * 0.42,
               height: MediaQuery.of(context).size.width * 0.42,
               fit: BoxFit.cover,
@@ -241,8 +491,9 @@ class RecipeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredRecipes =
-        recipeMenuItems.where((recipe) => recipe.category == category).toList();
+    final filteredRecipes = RecipeMenu.recipeMenuItems
+        .where((recipe) => recipe.category == category)
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -311,8 +562,7 @@ class RecipeListScreen extends StatelessWidget {
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(100),
-                                        child: Image.asset(
-                                            'assets/food_template.jpg'),
+                                        child: Image.asset(recipe.imageUrl),
                                       )),
                                   const SizedBox(height: 0),
                                   // Título de la receta
@@ -357,9 +607,34 @@ class RecipeListScreen extends StatelessWidget {
   }
 }
 
-class RecipeDetailScreen extends StatelessWidget {
+class RecipeDetailScreen extends StatefulWidget {
   final MenuItem recipe;
   const RecipeDetailScreen({super.key, required this.recipe});
+
+  @override
+  _RecipeDetailScreenState createState() => _RecipeDetailScreenState();
+}
+
+class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+  late List<bool> _checkedIngredients;
+  bool _isFavorite = false; // Estado de favorito
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteState();
+    _checkedIngredients =
+        List<bool>.filled(widget.recipe.ingredients.length, false);
+  }
+
+  void _loadFavoriteState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? favoriteRecipes =
+        prefs.getStringList('favoriteRecipes') ?? [];
+    setState(() {
+      _isFavorite = favoriteRecipes.contains(widget.recipe.title);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -381,6 +656,22 @@ class RecipeDetailScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              _isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // Cambiar el estado de favorito al presionar el botón
+              setState(() {
+                _isFavorite = !_isFavorite;
+              });
+              // Actualizar la lista de recetas favoritas en SharedPreferences
+              _updateFavorites();
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         // Permite desplazarse si el contenido excede la pantalla
@@ -399,22 +690,35 @@ class RecipeDetailScreen extends StatelessWidget {
                     child: ClipRRect(
                       //todo: remover el ClipRRect si no se va a poner borde circular a la imagen
                       borderRadius: BorderRadius.circular(0),
-                      child: Image.asset('assets/food_template.jpg'),
+                      child: Image.asset(widget.recipe.imageUrl),
                     )),
               ),
               const SizedBox(height: 10.0), // Espacio entre imagen y texto
-
               // Título
               Text(
-                recipe.title,
+                widget.recipe.title,
                 style: const TextStyle(
                     fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                   height: 5.0), // Espacio entre título y subtítulo (opcional)
 
+// Tiempo
+              Row(
+                children: [
+                  const Text('Duración:'),
+                  const Icon(Icons.access_time), // Icono de reloj
+                  const SizedBox(width: 5),
+                  Text(widget.recipe.time), // Mostrar el tiempo
+                ],
+              ),
+
+              const SizedBox(
+                  height:
+                      10.0), // Espacio entre el tiempo y el subtítulo (opcional)
+
               // Subtítulo (opcional)
-              Text(recipe.subTitle),
+              Text(widget.recipe.subTitle),
 
               const SizedBox(
                   height:
@@ -422,13 +726,12 @@ class RecipeDetailScreen extends StatelessWidget {
 
               // Categoría
               Text(
-                'Categoría: ${recipe.category}',
+                'Categoría: ${widget.recipe.category}',
                 style: const TextStyle(fontSize: 16.0, color: Colors.grey),
               ),
 
               const SizedBox(
                   height: 15.0), // Espacio entre categoría e ingredientes
-
               // Ingredientes
               const Text(
                 'Ingredientes:',
@@ -436,12 +739,8 @@ class RecipeDetailScreen extends StatelessWidget {
               ),
               const SizedBox(
                   height: 5.0), // Espacio entre título de ingredientes y lista
-              _buildIngredientsList(recipe
+              _buildIngredientsList(widget.recipe
                   .ingredients), // Widget para mostrar la lista de ingredientes
-
-              const SizedBox(
-                  height: 15.0), // Espacio entre ingredientes e instrucciones
-
               // Instrucciones
               const Text(
                 'Instrucciones:',
@@ -452,7 +751,7 @@ class RecipeDetailScreen extends StatelessWidget {
               ),
               // todo: cambiar el formato de las instrucciones similar a como estan los ingredientes
               Text(
-                recipe.instructions,
+                widget.recipe.instructions,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -467,27 +766,49 @@ class RecipeDetailScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment:
           CrossAxisAlignment.start, // Alinea los ingredientes a la izquierda
-      children: ingredients.map((ingredient) => Text(ingredient)).toList(),
+      children: List.generate(ingredients.length, (index) {
+        return Row(
+          children: [
+            Checkbox(
+              value: _checkedIngredients[index],
+              onChanged: (newValue) {
+                setState(() {
+                  _checkedIngredients[index] = newValue ?? false;
+                });
+              },
+            ),
+            Flexible(
+              child: Text(
+                ingredients[index],
+                style: _checkedIngredients[index]
+                    ? const TextStyle(decoration: TextDecoration.lineThrough)
+                    : null,
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
-  // Widget para mostrar la lista de instrucciones
-  Widget _buildInstructionsList(List<String> instructions) {
-    return Column(
-      children: instructions.asMap().entries.map((entry) {
-        final stepNumber = entry.key + 1;
-        final instruction = entry.value;
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$stepNumber. ',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Expanded(child: Text(instruction)),
-          ],
-        );
-      }).toList(),
-    );
+  // Actualizar la lista de recetas favoritas en SharedPreferences
+  void _updateFavorites() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? favoriteRecipes =
+        prefs.getStringList('favoriteRecipes') ?? [];
+
+    if (_isFavorite) {
+      // Agregar la receta a favoritos si no está en la lista
+      if (!favoriteRecipes.contains(widget.recipe.title)) {
+        favoriteRecipes.add(widget.recipe.title);
+        await prefs.setStringList('favoriteRecipes', favoriteRecipes);
+      }
+    } else {
+      // Eliminar la receta de favoritos si está en la lista
+      if (favoriteRecipes.contains(widget.recipe.title)) {
+        favoriteRecipes.remove(widget.recipe.title);
+        await prefs.setStringList('favoriteRecipes', favoriteRecipes);
+      }
+    }
   }
 }
