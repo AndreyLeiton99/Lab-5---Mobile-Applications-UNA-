@@ -24,7 +24,7 @@ class _LayerThreeState extends State<LayerThree> {
             left: 59,
             top: 99,
             child: Text(
-              'Username',
+              'Usuario',
               style: TextStyle(
                   fontFamily: 'Poppins-Medium',
                   fontSize: 24,
@@ -40,7 +40,7 @@ class _LayerThreeState extends State<LayerThree> {
                   controller: usernameController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    hintText: 'Enter User ID or Email',
+                    hintText: 'Ingrese usuario o correo electrónico',
                     hintStyle: TextStyle(color: hintText),
                   ),
                 ),
@@ -49,7 +49,7 @@ class _LayerThreeState extends State<LayerThree> {
             left: 59,
             top: 199,
             child: Text(
-              'Password',
+              'Contraseña',
               style: TextStyle(
                   fontFamily: 'Poppins-Medium',
                   fontSize: 24,
@@ -66,16 +66,22 @@ class _LayerThreeState extends State<LayerThree> {
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    hintText: 'Enter Password',
+                    hintText: 'Ingrese su contraseña',
                     hintStyle: TextStyle(color: hintText),
                   ),
+                  onSubmitted: (value) {
+                    String enteredUsername = usernameController.text;
+                    String enteredPassword = passwordController.text;
+                    
+                    _checkCredentials(enteredUsername, enteredPassword, context);
+                  },
                 ),
               )),
           const Positioned(
               right: 60,
               top: 296,
               child: Text(
-                'Forgot Password',
+                '¿Olvidó su contraseña?',
                 style: TextStyle(
                     color: forgotPasswordText,
                     fontSize: 16,
@@ -99,7 +105,7 @@ class _LayerThreeState extends State<LayerThree> {
               left: 87,
               top: 375,
               child: Text(
-                'Remember Me',
+                'Recuérdame',
                 style: TextStyle(
                     color: forgotPasswordText,
                     fontSize: 16,
@@ -119,16 +125,11 @@ class _LayerThreeState extends State<LayerThree> {
                       String enteredUsername = usernameController.text;
                       String enteredPassword = passwordController.text;
 
-                      if (enteredUsername == 'admin' &&
-                          enteredPassword == 'admin') {
-                        // Navegar a la pantalla MenuScreen
-                        Navigator.pushReplacementNamed(context, '/menu');
-                      } else {
-                        // Credenciales incorrectas, aquí puedes mostrar un mensaje de error
-                      }
+                      _checkCredentials(
+                          enteredUsername, enteredPassword, context);
                     },
                     child: const Text(
-                      'Sign In',
+                      'Entrar',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Color(0xFF024335),
@@ -169,7 +170,7 @@ class _LayerThreeState extends State<LayerThree> {
                     ),
                   ),
                   const Text(
-                    'or',
+                    'ó',
                     style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'Poppins-Regular',
@@ -194,5 +195,46 @@ class _LayerThreeState extends State<LayerThree> {
         ],
       ),
     );
+  }
+
+  void showLoginErrorAlert(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        showCloseIcon: true,
+        padding: const EdgeInsets.all(25),
+        content: const Row(
+          children: [
+            Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 40,
+            ),
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                'Credenciales incorrectas. Inténtalo de nuevo.\n(Pista: Pruebe con admin/admin profe)',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+            ),
+          ],
+        ),
+        duration: const Duration(seconds: 4),
+      ),
+    );
+  }
+
+  void _checkCredentials(String enteredUsername, String enteredPassword, BuildContext context) {
+    if (enteredUsername == 'admin' && enteredPassword == 'admin') {
+      // Navegar a la pantalla MenuScreen
+      Navigator.pushReplacementNamed(context, '/menu');
+    } else {
+      // Credenciales incorrectas, mostrar mensaje de error
+      showLoginErrorAlert(context);
+    }
   }
 }
