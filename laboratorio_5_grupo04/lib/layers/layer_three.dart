@@ -72,8 +72,9 @@ class _LayerThreeState extends State<LayerThree> {
                   onSubmitted: (value) {
                     String enteredUsername = usernameController.text;
                     String enteredPassword = passwordController.text;
-                    
-                    _checkCredentials(enteredUsername, enteredPassword, context);
+
+                    _checkCredentials(
+                        enteredUsername, enteredPassword, context);
                   },
                 ),
               )),
@@ -214,7 +215,7 @@ class _LayerThreeState extends State<LayerThree> {
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
-                'Credenciales incorrectas. Inténtalo de nuevo.\n(Pista: Pruebe con admin/admin profe)',
+                'Credenciales incorrectas. Inténtalo de nuevo.\n(Pista para el profe: Pruebe con admin/admin)',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -228,7 +229,8 @@ class _LayerThreeState extends State<LayerThree> {
     );
   }
 
-  void _checkCredentials(String enteredUsername, String enteredPassword, BuildContext context) {
+  void _checkCredentials(
+      String enteredUsername, String enteredPassword, BuildContext context) {
     if (enteredUsername == 'admin' && enteredPassword == 'admin') {
       // Navegar a la pantalla MenuScreen
       Navigator.pushReplacementNamed(context, '/menu');

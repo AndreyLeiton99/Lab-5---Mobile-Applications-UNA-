@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart'; // Importante: Asegúrate de importar el paquete necesario
+import 'package:flutter/material.dart';
 
 class MenuItem {
   final String title;
   final String time;
   final String subTitle;
   final String link;
-  final String category; // for filter recipes
-  final String imageUrl; // for recipe image
-  final List<String> ingredients; // for recipe details
-  final String instructions; // for recipe's step-by-step instructions
+  final String category;
+  final String imageUrl;
+  final List<String> ingredients;
+  final String instructions;
 
   const MenuItem({
     required this.title,
@@ -24,7 +24,7 @@ class MenuItem {
 
 class RecipeMenu {
   static const List<MenuItem> recipeMenuItems = [
-    // Aquí van los elementos de tu lista
+    // Elementos del menu
     MenuItem(
       title: 'Helado de Vainilla',
       time: '1 hora',
