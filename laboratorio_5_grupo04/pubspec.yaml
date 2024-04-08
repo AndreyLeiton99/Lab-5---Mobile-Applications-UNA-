@@ -68,6 +68,8 @@ flutter:
     - assets/background/
     - assets/pastas/
     - assets/postres/
+    - assets/pizzas/
+    - assets/hamburguesas/
 
   #   - images/a_dot_ham.jpeg
 

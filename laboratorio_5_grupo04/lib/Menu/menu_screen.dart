@@ -558,27 +558,25 @@ class RecipeListScreen extends StatelessWidget {
                                   SizedBox(
                                       width: 170, // Ancho deseado de la imagen
                                       height: 170, // Alto deseado de la imagen
-                                      //margin: const EdgeInsets.all(8), // Margen entre imágenes
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(100),
                                         child: Image.asset(recipe.imageUrl),
                                       )),
                                   const SizedBox(height: 0),
-                                  // Título de la receta
+                                  // Titulo de la receta
                                   Text(
                                     recipe.title,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
-                                      //color: Colors.white,
                                     ),
                                   ),
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  // Subtítulo de la receta
+                                  // Subtitulo de la receta
                                   Text(
                                     recipe.subTitle,
                                     textAlign: TextAlign.center,
