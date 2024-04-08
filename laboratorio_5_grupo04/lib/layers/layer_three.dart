@@ -235,6 +235,8 @@ class _LayerThreeState extends State<LayerThree> {
     } else {
       // Credenciales incorrectas, mostrar mensaje de error
       showLoginErrorAlert(context);
+      usernameController.clear();
+      passwordController.clear();
     }
   }
 }
