@@ -560,8 +560,8 @@ class RecipeListScreen extends StatelessWidget {
                                       height: 170, // Alto deseado de la imagen
                                       child: ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: Image.asset(recipe.imageUrl),
+                                            BorderRadius.circular(80),
+                                        child: Image.asset(recipe.imageUrl, fit: BoxFit.fill,),
                                       )),
                                   const SizedBox(height: 0),
                                   // Titulo de la receta
@@ -687,7 +687,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     //margin: const EdgeInsets.all(8), // Margen entre imágenes
                     child: ClipRRect(
                       //todo: remover el ClipRRect si no se va a poner borde circular a la imagen
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(10),
                       child: Image.asset(widget.recipe.imageUrl),
                     )),
               ),
