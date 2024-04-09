@@ -322,8 +322,7 @@ class CategoryMenuScreen extends StatefulWidget {
 }
 
 class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
-  int _selectedIndex = 1; // Estado para indicar la pantalla activa
-
+  int _selectedIndex = 1;
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -356,24 +355,23 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(
-            255, 114, 81, 69), // Color de fondo de la barra de navegación
+        backgroundColor: const Color.fromARGB(255, 114, 81, 69),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.star), // Icono de recetas populares
-            label: 'Menú Principal', // Texto de recetas populares
+            icon: Icon(Icons.star),
+            label: 'Menú Principal',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category), // Icono de categorías
-            label: 'Categorías', // Texto de la categoría
+            icon: Icon(Icons.category),
+            label: 'Categorías',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite), // Icono de favoritos
-            label: 'Favoritos', // Texto de favoritos
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos',
           ),
         ],
-        currentIndex: _selectedIndex, // Estado actual
-        selectedItemColor: Colors.white, // Color de texto seleccionado
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
         onTap: (int index) {
           setState(() {
             _selectedIndex = index;
@@ -395,63 +393,54 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
           }
         },
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                hintText: 'Buscar categoría',
-                hintStyle: TextStyle(color: Colors.white),
-                filled: true,
-                fillColor: Color.fromARGB(87, 114, 81, 69),
-                prefixIcon: Icon(Icons.search),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value.toLowerCase();
-                });
-              },
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background/background.png'),
+            fit: BoxFit.cover,
           ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      'assets/background/background.png'),
-                  fit: BoxFit.cover,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: const InputDecoration(
+                  hintText: 'Buscar categoría',
+                  hintStyle: TextStyle(color: Colors.white),
+                  filled: true,
+                  fillColor: Color.fromARGB(87, 114, 81, 69),
+                  prefixIcon: Icon(Icons.search),
                 ),
-              ),
-              child: Center(
-                child: GridView.count(
-                  padding: const EdgeInsets.only(top: 150),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: _buildCategoryCards(),
-                ),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value.toLowerCase();
+                  });
+                },
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(8.0),
+                children: _buildCategoryCards(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   List<Widget> _buildCategoryCards() {
-    List<String> categories = [
-      'Pastas',
-      'Postres',
-      'Pizza',
-      'Hamburguesas'
-    ]; // Lista de categorías
+    List<String> categories = ['Pastas', 'Postres', 'Pizza', 'Hamburguesas'];
+
     if (_searchQuery.isNotEmpty) {
       categories = categories
           .where((category) => category.toLowerCase().contains(_searchQuery))
           .toList();
     }
+
     return categories.map((category) {
       return GestureDetector(
         onTap: () {
@@ -462,18 +451,27 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
             ),
           );
         },
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/categorias/$category.png',
-              width: MediaQuery.of(context).size.width * 0.42,
-              height: MediaQuery.of(context).size.width * 0.42,
-              fit: BoxFit.cover,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width * 0.42,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/categorias/$category.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-            Text(category,
-                style:
-                    const TextStyle(fontSize: 18)),
-          ],
+            child: Center(
+              child: Text(
+                category,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
         ),
       );
     }).toList();
@@ -555,9 +553,11 @@ class RecipeListScreen extends StatelessWidget {
                                       width: 170, // Ancho deseado de la imagen
                                       height: 170, // Alto deseado de la imagen
                                       child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(80),
-                                        child: Image.asset(recipe.imageUrl, fit: BoxFit.fill,),
+                                        borderRadius: BorderRadius.circular(80),
+                                        child: Image.asset(
+                                          recipe.imageUrl,
+                                          fit: BoxFit.fill,
+                                        ),
                                       )),
                                   const SizedBox(height: 0),
                                   // Titulo de la receta
@@ -708,15 +708,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               ),
 
               const SizedBox(
-                  height:
-                      10.0), // Espacio entre el tiempo y el subtítulo
+                  height: 10.0), // Espacio entre el tiempo y el subtítulo
 
               // Subtítulo
               Text(widget.recipe.subTitle),
 
               const SizedBox(
-                  height:
-                      10.0), // Espacio entre subtítulo y categoría
+                  height: 10.0), // Espacio entre subtítulo y categoría
 
               // Categoría
               Text(
