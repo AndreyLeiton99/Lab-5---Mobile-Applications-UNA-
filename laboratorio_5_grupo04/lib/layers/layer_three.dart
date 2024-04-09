@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prueba/config.dart'; // Importa la clase MenuScreen
+import 'package:provider/provider.dart';
+import 'package:prueba/config.dart';
+import 'package:prueba/providers/login_providers.dart';
 
 class LayerThree extends StatefulWidget {
   const LayerThree({super.key});
@@ -15,6 +17,8 @@ class _LayerThreeState extends State<LayerThree> {
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = context.watch<LoginProvider>();
+
     return SizedBox(
       height: 584,
       width: MediaQuery.of(context).size.width,
@@ -73,7 +77,7 @@ class _LayerThreeState extends State<LayerThree> {
                     String enteredUsername = usernameController.text;
                     String enteredPassword = passwordController.text;
                     
-                    _checkCredentials(enteredUsername, enteredPassword, context);
+                    _checkCredentials(enteredUsername, enteredPassword, context, loginProvider);
                   },
                 ),
               )),
@@ -122,11 +126,12 @@ class _LayerThreeState extends State<LayerThree> {
                   padding: const EdgeInsets.only(top: 6.0),
                   child: ElevatedButton(
                     onPressed: () {
+
                       String enteredUsername = usernameController.text;
                       String enteredPassword = passwordController.text;
 
                       _checkCredentials(
-                          enteredUsername, enteredPassword, context);
+                          enteredUsername, enteredPassword, context, loginProvider);
                     },
                     child: const Text(
                       'Entrar',
@@ -228,10 +233,12 @@ class _LayerThreeState extends State<LayerThree> {
     );
   }
 
-  void _checkCredentials(String enteredUsername, String enteredPassword, BuildContext context) {
+  void _checkCredentials(String enteredUsername, String enteredPassword, BuildContext context, LoginProvider loginProvider) {
     if (enteredUsername == 'admin' && enteredPassword == 'admin') {
       // Navegar a la pantalla MenuScreen
       Navigator.pushReplacementNamed(context, '/menu');
+      loginProvider.change(enteredUsername, enteredPassword);
+
     } else {
       // Credenciales incorrectas, mostrar mensaje de error
       showLoginErrorAlert(context);

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prueba/config/menu_items_recipes.dart';
+import 'package:prueba/providers/login_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
-
+  
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }
@@ -14,6 +16,9 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final loginProvider = context.watch<LoginProvider>();
+    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -91,20 +96,20 @@ class _MenuScreenState extends State<MenuScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18),
+             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Column(
                 children: [
                   Text(
-                    'Bienvenidos a nuestra página de recetas',
-                    style: TextStyle(
+                    'Bienvenidos a nuestra página de recetas, ${loginProvider.username}',
+                    style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 12),
-                  Text(
+                  const SizedBox(height: 12),
+                  const Text(
                     'Acá podrás encontrar muchas recetas de diferentes tipos de comida, busca la que más te guste y empieza a cocinar',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
