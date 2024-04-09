@@ -210,7 +210,6 @@ class _FavoriteRecipesScreenState extends State<FavoriteRecipesScreen> {
           });
           if (index == 0) {
             Navigator.pushReplacement(
-              // Reemplaza Navigator.push por Navigator.pushReplacement
               context,
               MaterialPageRoute(
                 builder: (context) => const MenuScreen(),
@@ -218,7 +217,6 @@ class _FavoriteRecipesScreenState extends State<FavoriteRecipesScreen> {
             );
           } else if (index == 1) {
             Navigator.pushReplacement(
-              // Reemplaza Navigator.push por Navigator.pushReplacement
               context,
               MaterialPageRoute(
                 builder: (context) => const CategoryMenuScreen(),
@@ -387,7 +385,6 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
           });
           if (index == 0) {
             Navigator.pushReplacement(
-              // Reemplaza Navigator.push por Navigator.pushReplacement
               context,
               MaterialPageRoute(
                 builder: (context) => const MenuScreen(),
@@ -395,7 +392,6 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
             );
           } else if (index == 2) {
             Navigator.pushReplacement(
-              // Reemplaza Navigator.push por Navigator.pushReplacement
               context,
               MaterialPageRoute(
                 builder: (context) => const FavoriteRecipesScreen(),
@@ -429,7 +425,7 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'assets/background/background.png'), // Mismo fondo de imagen que MenuScreen
+                      'assets/background/background.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -455,7 +451,7 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
       'Postres',
       'Pizza',
       'Hamburguesas'
-    ]; // Lista de categorías (aquí podrías cargarlas desde una fuente de datos externa)
+    ]; // Lista de categorías
     if (_searchQuery.isNotEmpty) {
       categories = categories
           .where((category) => category.toLowerCase().contains(_searchQuery))
@@ -481,7 +477,7 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
             ),
             Text(category,
                 style:
-                    const TextStyle(fontSize: 18)), // Estilo de texto similar
+                    const TextStyle(fontSize: 18)),
           ],
         ),
       );
@@ -718,14 +714,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
               const SizedBox(
                   height:
-                      10.0), // Espacio entre el tiempo y el subtítulo (opcional)
+                      10.0), // Espacio entre el tiempo y el subtítulo
 
-              // Subtítulo (opcional)
+              // Subtítulo
               Text(widget.recipe.subTitle),
 
               const SizedBox(
                   height:
-                      10.0), // Espacio entre subtítulo (opcional) y categoría
+                      10.0), // Espacio entre subtítulo y categoría
 
               // Categoría
               Text(

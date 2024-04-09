@@ -219,7 +219,7 @@ class _LayerThreeState extends State<LayerThree> {
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
-                'Credenciales incorrectas. Inténtalo de nuevo.\n(Pista: Pruebe con admin/admin profe)',
+                'Credenciales incorrectas. Inténtalo de nuevo.\n(Pista para el profe: Pruebe con admin/admin)',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
